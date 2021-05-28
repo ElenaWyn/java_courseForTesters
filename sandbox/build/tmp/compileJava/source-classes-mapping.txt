@@ -1,0 +1,4 @@
+myFirstPakage/Point.java
+ myFirstPakage.Point
+myFirstPakage/HelloWorld.java
+ myFirstPakage.HelloWorld
