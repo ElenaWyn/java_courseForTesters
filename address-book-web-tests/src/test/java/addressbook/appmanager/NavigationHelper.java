@@ -11,4 +11,6 @@ public class NavigationHelper extends HelperBase{
     public void goToGroupPage() {
       wd.findElement(By.xpath("//a[@href='group.php']")).click();
     }
+
+    public void goToHomePage() { wd.findElement(By.xpath("//a[@href='./']")).click(); }
 }

@@ -11,7 +11,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void returnToHomePage() {
-        wd.findElement(By.linkText("home page")).click();
+        wd.findElement(By.linkText("home")).click();
     }
 
     public void submitContactCreation() {
@@ -28,4 +28,30 @@ public class ContactHelper extends HelperBase {
     public void initNewContact() {
         wd.findElement(By.linkText("add new")).click();
     }
+
+    public void chooseContact() {
+        wd.findElement(By.name("selected[]")).click();
+    }
+
+    public void chooseContact(String id) {
+        wd.findElement(By.id(id)).click();
+    }
+
+
+    public void deleteContact() {
+        wd.findElement(By.xpath("//input[@value=\"Delete\"]")).click();
+    }
+
+    public void initContactModification(){
+        String id = wd.findElement(By.name("selected[]")).getAttribute("id");
+        chooseContact(id);
+        wd.findElement(By.xpath("//input[@value = '"+id+"']/ancestor ::td[contains(@class, 'center')]/ancestor :: tr[contains(@name, 'entry')]/td[8]/a")).click();
+    }
+
+    public void submitChanges() { wd.findElement(By.name("update")).click(); }
+
+
+
+
+
 }
