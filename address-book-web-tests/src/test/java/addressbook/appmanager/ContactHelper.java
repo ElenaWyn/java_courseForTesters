@@ -30,7 +30,9 @@ public class ContactHelper extends HelperBase {
     }
 
     public void chooseContact() {
-        wd.findElement(By.name("selected[]")).click();
+
+        //wd.findElement(By.name("selected[]")).click();
+        wd.findElement(By.xpath("//a/img[@title=\"Edit\"]")).click();
     }
 
     public void chooseContact(String id) {
@@ -43,9 +45,9 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initContactModification(){
-        String id = wd.findElement(By.name("selected[]")).getAttribute("id");
-        chooseContact(id);
-        wd.findElement(By.xpath("//input[@value = '"+id+"']/ancestor ::td[contains(@class, 'center')]/ancestor :: tr[contains(@name, 'entry')]/td[8]/a")).click();
+        //String id = wd.findElement(By.name("selected[]")).getAttribute("id");
+        chooseContact();
+        //wd.findElement(By.xpath("//input[@value = '"+id+"']/ancestor ::td[contains(@class, 'center')]/ancestor :: tr[contains(@name, 'entry')]/td[8]/a")).click();
     }
 
     public void submitChanges() { wd.findElement(By.name("update")).click(); }
