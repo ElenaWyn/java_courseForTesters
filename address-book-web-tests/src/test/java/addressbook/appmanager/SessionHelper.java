@@ -14,8 +14,17 @@ public class SessionHelper extends HelperBase {
         type(By.name("pass"), password);
         wd.findElement(By.xpath("//input[@value='Login']")).click();
     }
-    public void acceptAlert(){
-        wd.switchTo().alert().accept();
+
+    public void acceptAlert() {
+        try {
+            wd.switchTo().alert().accept();
+        } catch (Exception e) {
+            return;
+        }
     }
+
+
+
+
 }
 

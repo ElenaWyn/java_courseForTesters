@@ -44,4 +44,15 @@ public class GroupHelper extends HelperBase {
     public void submitChanges() {
         wd.findElement(By.name("update")).click();
     }
+
+    public void createGroup(Group group) {
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returnToGroupPage();
+    }
+
+    public boolean isThereAnyGroup() {
+        return isElementPresent(By.name("selected[]"));
+    }
 }

@@ -53,7 +53,13 @@ public class ContactHelper extends HelperBase {
     public void submitChanges() { wd.findElement(By.name("update")).click(); }
 
 
+    public void createContact(Contact contact) {
+        initNewContact();
+        fillContactForm(contact);
+        submitContactCreation();
+    }
 
-
-
+    public boolean isThereAnyContact() {
+        return isElementPresent(By.xpath("//a/img[@title=\"Edit\"]"));
+    }
 }

@@ -9,8 +9,18 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void goToGroupPage() {
-      wd.findElement(By.xpath("//a[@href='group.php']")).click();
+
+        if(isElementPresent(By.tagName("h1"))
+                && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+                && isElementPresent(By.name("new"))) {
+            return;
+        }
+        wd.findElement(By.xpath("//a[@href='group.php']")).click();
     }
 
-    public void goToHomePage() { wd.findElement(By.xpath("//a[@href='./']")).click(); }
+    public void goToHomePage() {
+        if(isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        wd.findElement(By.xpath("//a[@href='./']")).click(); }
 }
