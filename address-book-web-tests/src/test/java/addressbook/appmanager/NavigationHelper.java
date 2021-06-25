@@ -18,7 +18,7 @@ public class NavigationHelper extends HelperBase{
         wd.findElement(By.xpath("//a[@href='group.php']")).click();
     }
 
-    public void goToHomePage() {
+    public void homePage() {
         if(isElementPresent(By.id("maintable"))) {
             return;
         }

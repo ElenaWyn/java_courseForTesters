@@ -1,6 +1,7 @@
 package addressbook.appmanager;
 
 import addressbook.model.Contact;
+import addressbook.model.ContactSet;
 import addressbook.model.Group;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,15 +35,19 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    public void chooseContact(int index) {
-
-        //wd.findElement(By.name("selected[]")).click();
-        List<WebElement> contacts = contactsOnPage();
-        contacts.get(index).findElement(By.xpath("//a/img[@title=\"Edit\"]")).click();
-    }
 
     public void chooseContact(String id) {
         wd.findElement(By.id(id)).click();
+    }
+
+    public void initContactEdition(String id) {
+        wd.findElement(By.xpath("//td//a[@href=\"edit.php?id=" + id + "\"]")).click();
+    }
+
+    public void modify(Contact modifiedContact, Contact newContactData) {
+        initContactEdition(String.valueOf(modifiedContact.getId()));
+        fillContactForm(newContactData);
+        submitChanges();
     }
 
 
@@ -50,23 +55,14 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//input[@value=\"Delete\"]")).click();
     }
 
-    public void initContactModification(int index){
-        //String id = wd.findElement(By.name("selected[]")).getAttribute("id");
-        chooseContact(index);
-        //wd.findElement(By.xpath("//input[@value = '"+id+"']/ancestor ::td[contains(@class, 'center')]/ancestor :: tr[contains(@name, 'entry')]/td[8]/a")).click();
-    }
 
     public void submitChanges() { wd.findElement(By.name("update")).click(); }
 
 
-    public void createContact(Contact contact) {
+    public void create(Contact contact) {
         initNewContact();
         fillContactForm(contact);
         submitContactCreation();
-    }
-
-    public boolean isThereAnyContact() {
-        return isElementPresent(By.xpath("//a/img[@title=\"Edit\"]"));
     }
 
 
@@ -93,15 +89,15 @@ public class ContactHelper extends HelperBase {
 
     public Contact makeContactFromList(List<String> dataForContact) {
         int id = Integer.parseInt(dataForContact.get(0));
-        return new Contact (id, dataForContact.get(1), dataForContact.get(2));
+        return new Contact().withId(id).withFirstname(dataForContact.get(2)).withLastname(dataForContact.get(1));
     }
 
     public List<WebElement> contactsOnPage() {
         return wd.findElements(By.xpath("//tr[@name = 'entry']"));
     }
 
-    public List<Contact> getContactList() {
-        List<Contact> contacts = new ArrayList<Contact>();
+    public ContactSet all() {
+        ContactSet contacts = new ContactSet();
         List<WebElement> elements = contactsOnPage();
         for (WebElement element : elements) {
             List<String> data = contactData(element);
@@ -109,6 +105,11 @@ public class ContactHelper extends HelperBase {
             contacts.add(contact);
         }
         return contacts;
+    }
+
+    public void delete(Contact contact) {
+        chooseContact(String.valueOf(contact.getId()));
+        deleteContact();
     }
 
 

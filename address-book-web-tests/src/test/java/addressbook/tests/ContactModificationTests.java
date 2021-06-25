@@ -1,31 +1,41 @@
 package addressbook.tests;
 
 import addressbook.model.Contact;
-import org.testng.Assert;
+import addressbook.model.ContactSet;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
 
 public class ContactModificationTests extends TestBase{
+
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.contact().all().size() == 0) {
+            app.contact().create(new Contact().withFirstname("Elena").withLastname("Doe").withAddress("Uliczna 5").withTel_home("1234567"));
+        }
+    }
+
     @Test
     public void testContactModification(){
-        app.goTo().goToHomePage();
-        List<Contact> before = app.getContactHelper().getContactList();
-        app.getContactHelper().chooseContact(1);
-        app.getContactHelper().fillContactForm(new Contact("Adam", "Adam", "Nowogrodek", "09876543"));
-        app.getContactHelper().submitChanges();
-        app.goTo().goToHomePage();
-        List<Contact> after = app.getContactHelper().getContactList();
-        Comparator<? super Contact> byId = (ln1, ln2) -> Integer.compare(ln1.getId(), ln2.getId());
-        before.remove(0);
-        before.add(after.get(0));
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        app.goTo().homePage();
+        ContactSet before = app.contact().all();
+        Contact modifiedContact = before.iterator().next();
+        Contact newContactData = new Contact().withId(modifiedContact.getId()).withFirstname("Adam").withLastname("Adam").withAddress("Nowogrodek").withTel_home("09876543");
+        app.contact().modify(modifiedContact, newContactData);
+        app.goTo().homePage();
+        ContactSet after = app.contact().all();
+
+
+        MatcherAssert.assertThat(after.size(), CoreMatchers.equalTo(before.size()));
+        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(newContactData)));
+
 
 
 
 
     }
+
+
 }

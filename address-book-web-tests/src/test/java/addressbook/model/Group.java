@@ -7,7 +7,7 @@ public class Group {
     private  String groupName;
     private  String groupHeader;
     private  String groupFooter;
-    private int id = Integer.MAX_VALUE;;
+    private int id = Integer.MAX_VALUE;
 
 
     public Group withId(int id) {

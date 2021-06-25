@@ -3,24 +3,35 @@ package addressbook.model;
 import java.util.Objects;
 
 public class Contact {
-    private int id;
+    private int id = Integer.MAX_VALUE;
 
-    public void setId(int id) {
+    public Contact() {
+
+    }
+
+
+    public Contact withId(int id) {
         this.id = id;
+        return this;
     }
 
     public int getId() {
         return id;
     }
 
-    private final  String firstname;
-    private final String lastname;
+    private   String firstname;
+    private  String lastname;
     public String middlename;
     public String nickname;
     public String title;
     public String company;
-    private final String address;
-    private final String tel_home;
+    private String address;
+
+    public void setTel_home(String tel_home) {
+        this.tel_home = tel_home;
+    }
+
+    private String tel_home;
     public String tel_mobile;
     public String tel_work;
     public String fax;
@@ -54,18 +65,25 @@ public class Contact {
     public String notes;
 
 
-    public Contact(String firstname, String lastname, String address, String tel_home) {
+
+    public Contact withFirstname (String firstname) {
         this.firstname = firstname;
-        this.lastname = lastname;
-        this.address = address;
-        this.tel_home = tel_home;
+        return this;
     }
 
-    public Contact(String firstname, String lastname) {
-        this.firstname = firstname;
+    public Contact withLastname (String lastname) {
         this.lastname = lastname;
-        this.address = null;
-        this.tel_home = null;
+        return this;
+    }
+
+    public Contact withAddress (String address) {
+        this.address = address;
+        return this;
+    }
+
+    public Contact withTel_home (String tel_home) {
+        this.tel_home = tel_home;
+        return this;
     }
 
     @Override
