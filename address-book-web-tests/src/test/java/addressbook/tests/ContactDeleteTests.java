@@ -4,7 +4,6 @@ import addressbook.model.Contact;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class ContactDeleteTests extends  TestBase{
@@ -17,7 +16,7 @@ public class ContactDeleteTests extends  TestBase{
         app.getContactHelper().chooseContact(1);
         app.getContactHelper().deleteContact();
         app.getSessionHelper().acceptAlert();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
         List<Contact> after = app.getContactHelper().getContactList();
 
         before.remove(0);

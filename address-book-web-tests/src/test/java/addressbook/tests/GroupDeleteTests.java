@@ -1,27 +1,35 @@
 package addressbook.tests;
 
 import addressbook.model.Group;
+import addressbook.model.GroupSet;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class GroupDeleteTests extends TestBase {
 
+
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.goTo().GroupPage();
+        if(app.group().all().size() == 0) {
+            app.group().create(new Group().withGroupName("Grupa").withGroupHeader("TestGroupHeader").withGroupFooter("TestGroupFooter"));
+        }
+    }
+
     @Test
     public void testGroupDelete(){
-        app.getNavigationHelper().goToGroupPage();
-        if(! app.getGroupHelper().isThereAnyGroup()) {
-            app.getGroupHelper().createGroup(new Group("TEST345", "Test4", "Test5"));
-        }
-        List<Group> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().chooseGroup(before.size() - 1);
-        app.getGroupHelper().deleteGroup();
-        app.getGroupHelper().returnToGroupPage();
-        List<Group> after = app.getGroupHelper().getGroupList();
+        GroupSet before = app.group().all();
+        Group deletedGroup = before.iterator().next();
+        app.group().delete(deletedGroup);
+        GroupSet after = app.group().all();
         Assert.assertEquals(after.size(), before.size() - 1);
-        before.remove(before.size() - 1);
-        Assert.assertEquals(before, after);
+        MatcherAssert.assertThat(after, equalTo(before.without(deletedGroup)));
 
     }
 

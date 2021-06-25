@@ -3,24 +3,48 @@ package addressbook.model;
 import java.util.Objects;
 
 public class Group {
-    public void setId(int id) {
+
+    private  String groupName;
+    private  String groupHeader;
+    private  String groupFooter;
+    private int id = Integer.MAX_VALUE;;
+
+
+    public Group withId(int id) {
         this.id = id;
+        return this;
     }
 
-    private int id;
-    private final String groupName;
-    private final String groupHeader;
-    private final String groupFooter;
+    public Group withGroupName(String groupName) {
+        this.groupName = groupName;
+        return this;
+    }
+
+    public Group withGroupHeader(String groupHeader) {
+        this.groupHeader = groupHeader;
+        return this;
+    }
+
+    public Group withGroupFooter(String groupFooter) {
+        this.groupFooter = groupFooter;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return id == group.id && Objects.equals(groupName, group.groupName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupName, id);
+    }
 
     public int getId() {
         return id;
-    }
-
-    public Group(int id, String groupName, String groupHeader, String groupFooter) {
-        this.id = id;
-        this.groupName = groupName;
-        this.groupHeader = groupHeader;
-        this.groupFooter = groupFooter;
     }
 
     @Override
@@ -29,26 +53,6 @@ public class Group {
                 "id=" + id +
                 ", groupName='" + groupName + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Group group = (Group) o;
-        return Objects.equals(groupName, group.groupName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(groupName);
-    }
-
-    public Group(String groupName, String groupHeader, String groupFooter) {
-        this.id = Integer.MAX_VALUE;
-        this.groupName = groupName;
-        this.groupHeader = groupHeader;
-        this.groupFooter = groupFooter;
     }
 
     public String getGroupName() {

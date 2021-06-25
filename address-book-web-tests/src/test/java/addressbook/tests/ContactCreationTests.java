@@ -2,7 +2,6 @@ package addressbook.tests;
 
 
 import addressbook.model.Contact;
-import addressbook.model.Group;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.openqa.selenium.*;
@@ -16,7 +15,7 @@ public class ContactCreationTests extends TestBase {
 
   @Test
   public void testGroupCreationTests() throws Exception {
-    app.getNavigationHelper().goToHomePage();
+    app.goTo().goToHomePage();
     List<Contact> before = app.getContactHelper().getContactList();
     Contact contact = new Contact("Elena", "Doe", "Uliczna 5", "1234567");
     app.getContactHelper().createContact(contact);
