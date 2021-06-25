@@ -27,17 +27,85 @@ public class Contact {
     public String company;
     private String address;
 
-    public void setTel_home(String tel_home) {
-        this.tel_home = tel_home;
-    }
+
 
     private String tel_home;
     public String tel_mobile;
     public String tel_work;
+    public String AllPhones;
+
+    public Contact withAllPhones(String allPhones) {
+        this.AllPhones = allPhones;
+        return this;
+    }
+
+    public String getAllPhones() {
+        return AllPhones;
+    }
+
+    public Contact withTel_mobile(String tel_mobile) {
+        this.tel_mobile = tel_mobile;
+        return this;
+    }
+
+
+    public Contact withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public Contact withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+
+    }
+
+    public String getTel_mobile() {
+        return tel_mobile;
+    }
+
+    public String getTel_work() {
+        return tel_work;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public Contact withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+
+    }
+
+    public Contact withTel_work(String tel_work) {
+        this.tel_work = tel_work;
+        return this;
+    }
+
     public String fax;
     public String email;
     public String email2;
     public String email3;
+    public String allMails;
+
+    public String getAllMails() {
+        return allMails;
+    }
+
+    public Contact withAllMails(String allMails) {
+        this.allMails = allMails;
+        return this;
+    }
+
     public String homepage;
 
     @Override
