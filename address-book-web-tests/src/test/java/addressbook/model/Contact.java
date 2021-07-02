@@ -1,5 +1,6 @@
 package addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class Contact {
@@ -131,8 +132,16 @@ public class Contact {
     public String address_sec;
     public String home_sec;
     public String notes;
+    public File photo;
 
+    public File getPhoto() {
+        return photo;
+    }
 
+    public Contact withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
 
     public Contact withFirstname (String firstname) {
         this.firstname = firstname;
