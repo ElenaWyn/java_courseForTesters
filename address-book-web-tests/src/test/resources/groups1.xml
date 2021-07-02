@@ -1,0 +1,27 @@
+<list>
+  <group>
+    <groupName>Test 0</groupName>
+    <groupHeader>Header 0</groupHeader>
+    <groupFooter>Footer 0</groupFooter>
+  </group>
+  <group>
+    <groupName>Test 1</groupName>
+    <groupHeader>Header 1</groupHeader>
+    <groupFooter>Footer 1</groupFooter>
+  </group>
+  <group>
+    <groupName>Test 2</groupName>
+    <groupHeader>Header 2</groupHeader>
+    <groupFooter>Footer 2</groupFooter>
+  </group>
+  <group>
+    <groupName>Test 3</groupName>
+    <groupHeader>Header 3</groupHeader>
+    <groupFooter>Footer 3</groupFooter>
+  </group>
+  <group>
+    <groupName>Test 4</groupName>
+    <groupHeader>Header 4</groupHeader>
+    <groupFooter>Footer 4</groupFooter>
+  </group>
+</list>

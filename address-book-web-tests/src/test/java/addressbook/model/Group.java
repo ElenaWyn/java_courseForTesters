@@ -1,12 +1,25 @@
 package addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.util.Objects;
 
+@XStreamAlias("group")
 public class Group {
-
+    @Expose
     private  String groupName;
+    @Expose
     private  String groupHeader;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Expose
     private  String groupFooter;
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
 
 
