@@ -5,6 +5,7 @@ import addressbook.model.Contact;
 import addressbook.model.ContactSet;
 import addressbook.model.Group;
 import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -24,8 +25,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
-  private WebDriver wd;
-
 
   @DataProvider
   public Iterator<Object[]> validContactsJSON() throws IOException {
@@ -39,16 +38,35 @@ public class ContactCreationTests extends TestBase {
       line  = reader.readLine();
     }
     Gson gson = new Gson();
-    List<Contact> contacts = gson.fromJson(json, new TypeToken<List<Group>>(){}.getType());
-    return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    List<Contact> contacts = gson.fromJson(json, new TypeToken<List<Contact>>(){}.getType());
+    return contacts.stream().map((c) -> new Object[] {c}).collect(Collectors.toList()).iterator();
+
+  }
+  @DataProvider
+  public Iterator<Object[]> validContactsXML() throws IOException {
+    List<Object[]> list = new ArrayList<Object[]>();
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+    String xml = "";
+    String line  = reader.readLine();
+    while (line != null)
+    {
+      xml += line;
+      line  = reader.readLine();
+    }
+    XStream xstream = new XStream();
+    xstream.processAnnotations(Contact.class);
+    List <Contact> contacts = (List <Contact>) xstream.fromXML(xml);
+    return contacts.stream().map((c) -> new Object[] {c}).collect(Collectors.toList()).iterator();
 
   }
 
 
-  @Test(dataProvider = "validContactsJSON")
+
+  @Test(dataProvider = "validContactsXML")
   public void testContactCreationTests(Contact contact) throws Exception {
     app.goTo().homePage();
     ContactSet before = app.contact().all();
+    //Contact con = new Contact().withFirstname("ABCD").withLastname("EFGHIJ");
     app.contact().create(contact);
     app.contact().returnToHomePage();
     ContactSet after = app.contact().all();
