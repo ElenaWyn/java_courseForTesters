@@ -28,7 +28,7 @@ public class ContactDataGenerator {
 
 
     public static void main (String[] args) throws IOException {
-        GroupDataGenerator generator = new GroupDataGenerator();
+        ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jc = new JCommander(generator);
         try {
             jc.parse(args);
