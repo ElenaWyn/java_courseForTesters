@@ -13,3 +13,21 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream:1.4.17'
     implementation 'com.google.code.gson:gson:2.8.7'
 }
+
+task testGroups (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testNG-groups.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+}
+
+task testContacts (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testNG-contacts.xml'
+    }
+}
