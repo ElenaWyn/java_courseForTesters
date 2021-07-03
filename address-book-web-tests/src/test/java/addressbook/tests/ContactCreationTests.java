@@ -46,11 +46,9 @@ public class ContactCreationTests extends TestBase {
 
 
   @Test(dataProvider = "validContactsJSON")
-  public void testContactCreationTests() throws Exception {
+  public void testContactCreationTests(Contact contact) throws Exception {
     app.goTo().homePage();
     ContactSet before = app.contact().all();
-    Contact contact = new Contact()
-            .withFirstname("Doe").withLastname("Elena").withAddress("Uliczna 5").withTel_home("1234567");
     app.contact().create(contact);
     app.contact().returnToHomePage();
     ContactSet after = app.contact().all();
