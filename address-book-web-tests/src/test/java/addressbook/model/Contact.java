@@ -1,9 +1,15 @@
 package addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 import java.util.Objects;
 
+@XStreamAlias("group")
 public class Contact {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
 
     public Contact() {
@@ -20,18 +26,27 @@ public class Contact {
         return id;
     }
 
+    @Expose
     private   String firstname;
+    @Expose
     private  String lastname;
+    @Expose
     public String middlename;
+    @Expose
     public String nickname;
+    @Expose
     public String title;
+    @Expose
     public String company;
+    @Expose
     private String address;
 
 
-
+    @Expose
     private String tel_home;
+    @Expose
     public String tel_mobile;
+    @Expose
     public String tel_work;
     public String AllPhones;
 
@@ -92,9 +107,13 @@ public class Contact {
         return this;
     }
 
+    @Expose
     public String fax;
+    @Expose
     public String email;
+    @Expose
     public String email2;
+    @Expose
     public String email3;
     public String allMails;
 
@@ -107,6 +126,7 @@ public class Contact {
         return this;
     }
 
+    @Expose
     public String homepage;
 
     @Override

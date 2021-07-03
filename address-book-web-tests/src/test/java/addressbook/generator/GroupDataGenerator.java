@@ -41,7 +41,7 @@ public class GroupDataGenerator {
         save(groups, new File(args[1]));
     }*/
 
-    private void run() throws IOException {
+    public void run() throws IOException {
         List<Group> groups = generateGroups(count);
         if (format.equals("csv")) {
             saveAsCSV(groups, new File(file));
@@ -55,6 +55,9 @@ public class GroupDataGenerator {
                 System.out.println("Unrecognized format " + format);
             }
     }
+
+
+
 
     private void saveAsGson(List<Group> groups, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
