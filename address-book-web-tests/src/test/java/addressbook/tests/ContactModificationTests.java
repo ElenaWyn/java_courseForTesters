@@ -67,7 +67,7 @@ public class ContactModificationTests extends TestBase{
 
 
 
-    @Test(dataProvider = "validContactsXML")
+    @Test(dataProvider = "validContactsJSON")
     public void testContactModification(Contact newContactData){
         app.goTo().homePage();
         ContactSet before = app.contact().all();

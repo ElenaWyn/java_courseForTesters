@@ -2,6 +2,7 @@ package addressbook.model;
 
 import com.google.common.collect.ForwardingSet;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,11 @@ public class GroupSet extends ForwardingSet<Group> {
 
     public GroupSet(GroupSet groups) {
         this.delegate = new HashSet<Group>(groups.delegate);
+    }
+
+    public GroupSet(Collection<Group> groups) {
+        this.delegate = new HashSet<Group>(groups);
+
     }
 
     public GroupSet() {

@@ -3,13 +3,19 @@ package addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("group")
+@Entity
+@Table(name = "addressbook")
 public class Contact {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
 
     public Contact() {
@@ -39,15 +45,24 @@ public class Contact {
     @Expose
     public String company;
     @Expose
+    @Type(type = "text")
+    @Column(name = "address")
     private String address;
 
 
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String tel_home;
     @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
     public String tel_mobile;
     @Expose
+    @Column(name = "work")
+    @Type(type = "text")
     public String tel_work;
+    @Transient
     public String AllPhones;
 
     public Contact withAllPhones(String allPhones) {
@@ -108,13 +123,18 @@ public class Contact {
     }
 
     @Expose
+    @Type(type = "text")
     public String fax;
     @Expose
+    @Type(type = "text")
     public String email;
     @Expose
+    @Type(type = "text")
     public String email2;
     @Expose
+    @Type(type = "text")
     public String email3;
+    @Transient
     public String allMails;
 
     public String getAllMails() {
@@ -127,6 +147,7 @@ public class Contact {
     }
 
     @Expose
+    @Type(type = "text")
     public String homepage;
 
     @Override
@@ -142,24 +163,41 @@ public class Contact {
         return Objects.hash(id, firstname, lastname);
     }
 
+    @Transient
     public String birth_d;
+    @Transient
     public String birth_m;
+    @Transient
     public String birth_y;
+    @Transient
     public String an_d;
+    @Transient
     public String an_m;
+    @Transient
     public String an_y;
+
+    @Transient
     public String group;
+
+    @Column(name = "address2")
+    @Type(type = "text")
     public String address_sec;
+    @Column(name = "phone2")
+    @Type(type = "text")
     public String home_sec;
+
+    @Type(type = "text")
     public String notes;
-    public File photo;
+    @Column(name = "photo")
+    @Type(type = "text")
+    public String photo;
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public Contact withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 

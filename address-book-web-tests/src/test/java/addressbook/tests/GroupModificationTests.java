@@ -28,9 +28,10 @@ public class GroupModificationTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().GroupPage();
-        if(app.group().all().size() == 0) {
+        if(app.db().groups().size() == 0) {
+            app.goTo().GroupPage();
             app.group().create(new Group().withGroupName("Grupa").withGroupHeader("TestGroupHeader").withGroupFooter("TestGroupFooter"));
+
         }
     }
 
@@ -55,12 +56,13 @@ public class GroupModificationTests extends TestBase{
     @Test(dataProvider = "validGroupsJSON")
     public void testGroupModification(Group group){
 
-        GroupSet before = app.group().all();
+        GroupSet before = app.db().groups();
         Group modifiedGroup = before.iterator().next();
         group.setId(modifiedGroup.getId());
+        app.goTo().GroupPage();
         app.group().modify(group);
         assertThat(app.group().count(), equalTo(before.size()));
-        GroupSet after = app.group().all();
+        GroupSet after = app.db().groups();
         MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 
