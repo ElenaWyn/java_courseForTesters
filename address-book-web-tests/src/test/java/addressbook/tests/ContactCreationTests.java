@@ -65,11 +65,11 @@ public class ContactCreationTests extends TestBase {
   @Test(dataProvider = "validContactsXML")
   public void testContactCreationTests(Contact contact) throws Exception {
     app.goTo().homePage();
-    ContactSet before = app.contact().all();
+    ContactSet before = app.db().contacts();
     //Contact con = new Contact().withFirstname("ABCD").withLastname("EFGHIJ");
     app.contact().create(contact);
     app.contact().returnToHomePage();
-    ContactSet after = app.contact().all();
+    ContactSet after = app.db().contacts();
 
     assertThat(after.size(), equalTo(before.size() +1));
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));

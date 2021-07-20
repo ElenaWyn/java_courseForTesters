@@ -1,6 +1,7 @@
 package addressbook.appmanager;
 
 import addressbook.model.Contact;
+import addressbook.model.ContactSet;
 import addressbook.model.Group;
 import addressbook.model.GroupSet;
 import org.hibernate.Session;
@@ -36,5 +37,14 @@ public class DBHelper {
         session.close();
         return new GroupSet(result);
 
+    }
+
+    public ContactSet contacts() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Contact> result = session.createQuery( "from Contact").list();
+        session.getTransaction().commit();
+        session.close();
+        return new ContactSet(result);
     }
 }

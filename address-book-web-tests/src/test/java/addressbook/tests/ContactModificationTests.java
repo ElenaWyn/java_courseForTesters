@@ -26,7 +26,7 @@ public class ContactModificationTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             app.contact().create(new Contact().withFirstname("Elena").withLastname("Doe").withAddress("Uliczna 5").withTel_home("1234567"));
         }
     }
@@ -70,12 +70,12 @@ public class ContactModificationTests extends TestBase{
     @Test(dataProvider = "validContactsJSON")
     public void testContactModification(Contact newContactData){
         app.goTo().homePage();
-        ContactSet before = app.contact().all();
+        ContactSet before = app.db().contacts();
         Contact modifiedContact = before.iterator().next();
         newContactData.withId(modifiedContact.getId());
         app.contact().modify(modifiedContact, newContactData);
         app.goTo().homePage();
-        ContactSet after = app.contact().all();
+        ContactSet after = app.db().contacts();
 
 
         MatcherAssert.assertThat(after.size(), CoreMatchers.equalTo(before.size()));
