@@ -3,12 +3,15 @@ package addressbook.appmanager;
 import addressbook.model.Contact;
 import addressbook.model.ContactSet;
 import addressbook.model.Group;
+import addressbook.model.GroupSet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ContactHelper extends HelperBase {
 
@@ -138,5 +141,73 @@ public class ContactHelper extends HelperBase {
         return new Contact().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withTel_home(tel_home).withTel_work(tel_work).
                 withTel_mobile(tel_mobile).withAddress(address).withEmail(mail).withEmail2(mail2).withEmail3(mail3);
     }
+
+    public void addToGroup(Contact con, Group group){
+        wd.findElement(By.id(String.valueOf(con.getId()))).click();
+        new Select(wd.findElement(By.xpath("//select[@name='group']"))).selectByVisibleText(group.getGroupName());
+        wd.findElement(By.name("to_group")).click();
+        wd.findElement(By.name("add")).click();
+        wd.findElement(By.linkText("home")).click();
+    }
+
+    public Group randomGroup(GroupSet groups){
+        int size = groups.size();
+
+        int currIdx = 0;
+        int randIdx = new Random().nextInt(size);
+
+        for (Group group : groups) {
+            if (currIdx == randIdx) {
+                return group;
+            }
+            currIdx++;
+        }
+
+        return null;
+
+    }
+
+    public Contact randomContact(ContactSet cons){
+        int size = cons.size();
+
+        int currIdx = 0;
+        int randIdx = new Random().nextInt(size);
+
+        for (Contact contact : cons) {
+            if (currIdx == randIdx) {
+                return contact;
+            }
+            currIdx++;
+        }
+
+        return null;
+    }
+
+    public boolean isContactInGroup(Contact contact, Group group){
+        GroupSet contactGroups = contact.getGroups();
+        if (contactGroups.size() != 0) {
+            for (Group g : contactGroups) {
+                Group g1 = new Group().withId(g.getId()).withGroupName(g.getGroupName());
+                if (g1 == group){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+
+
+    }
+    
+    public void deleteContactFromGroup (Contact contact, Group group){
+        wd.findElement(By.linkText("home")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getGroupName());
+        wd.findElement(By.name("group")).click();
+        wd.findElement(By.id(String.valueOf(contact.getId()))).click();
+        wd.findElement(By.name("remove")).click();
+        wd.findElement(By.linkText("home")).click();
+    }
+
 
 }

@@ -1,11 +1,17 @@
 package addressbook.tests;
 
 import addressbook.appmanager.ApplicationManager;
+import addressbook.model.Group;
+import addressbook.model.GroupSet;
+import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Predicates.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestBase {
 
@@ -21,6 +27,18 @@ public class TestBase {
         app.logout();
         app.stop();
     }
+
+    public void verifyGroupListInUI() {
+        if(Boolean.getBoolean("verifyUI")) {
+            app.goTo().GroupPage();
+            GroupSet dbGroups = app.db().groups();
+            GroupSet uiGroups = app.group().all();
+            assertThat(uiGroups, CoreMatchers.equalTo(dbGroups.stream()
+                    .map((g) -> new Group().withId(g.getId()).withGroupName(g.getGroupName()))
+                    .collect(Collectors.toSet())));
+        }
+    }
+
 
 
 }
