@@ -36,7 +36,7 @@ public class ContactsAndGroups  extends TestBase{
         }
         GroupSet contactGroups = modifiedContact.getGroups();
         app.contact().addToGroup(modifiedContact, groupToAdd);
-        contactGroups.withAdded(groupToAdd);
+        contactGroups = contactGroups.withAdded(groupToAdd);
 
         //assertions
         contacts = app.db().contacts();
@@ -59,12 +59,12 @@ public class ContactsAndGroups  extends TestBase{
             GroupSet groups = app.db().groups();
             Group groupToAdd = app.contact().randomGroup(groups);
             app.contact().addToGroup(modifiedContact, groupToAdd);
-            contactGroups.withAdded(groupToAdd);
+            contactGroups = contactGroups.withAdded(groupToAdd);
         }
 
         Group groupDeleteFrom = app.contact().randomGroup(contactGroups);
         app.contact().deleteContactFromGroup(modifiedContact, groupDeleteFrom);
-        contactGroups.without(groupDeleteFrom);
+        contactGroups = contactGroups.without(groupDeleteFrom);
 
         //assertions
         contacts = app.db().contacts();

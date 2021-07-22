@@ -144,8 +144,9 @@ public class ContactHelper extends HelperBase {
 
     public void addToGroup(Contact con, Group group){
         wd.findElement(By.id(String.valueOf(con.getId()))).click();
-        new Select(wd.findElement(By.xpath("//select[@name='group']"))).selectByVisibleText(group.getGroupName());
+        //new Select(wd.findElement(By.xpath("//select[@name='to_group']"))).selectByVisibleText(group.getGroupName());
         wd.findElement(By.name("to_group")).click();
+        wd.findElement(By.xpath("//select[@name = 'to_group']/option[text() = '" + group.getGroupName() + "']")).click();
         wd.findElement(By.name("add")).click();
         wd.findElement(By.linkText("home")).click();
     }
