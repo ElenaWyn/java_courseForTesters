@@ -43,14 +43,15 @@ public class ApplicationManager {
 
     }
 
+    public HttpSession newSession() {
+        return new HttpSession(this);
+    }
+
 
     public void stop() {
         wd.quit();
     }
 
-    public void logout() {
-        wd.findElement(By.linkText("Logout")).click();
-    }
 
     public boolean isElementPresent(By by) {
         try {
@@ -62,9 +63,7 @@ public class ApplicationManager {
     }
 
 
-
-
-
-
-
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
 }
