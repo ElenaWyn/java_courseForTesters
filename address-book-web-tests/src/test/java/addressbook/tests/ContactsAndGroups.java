@@ -20,6 +20,24 @@ public class ContactsAndGroups  extends TestBase{
         if (app.db().contacts().size() == 0) {
             app.contact().create(new Contact().withFirstname("Elena").withLastname("Doe").withAddress("Uliczna 5").withTel_home("1234567"));
         }
+        ContactSet contacts = app.db().contacts();
+        GroupSet groups = app.db().groups();
+        int contactsInAllGroups = 0;
+        int isInAllGroups = 0;
+        for (Contact contact : contacts) {
+            for (Group group : groups) {
+                if(app.contact().isContactInGroup(contact, group)) {
+                    isInAllGroups = isInAllGroups+1;
+                }
+            }
+            if (isInAllGroups == groups.size()) {
+                contactsInAllGroups = contactsInAllGroups +1;
+            }
+            contactsInAllGroups = 0;
+        }
+        if (contactsInAllGroups == contacts.size()) {
+            app.contact().create(new Contact().withFirstname("Olena").withLastname("Doedoe").withAddress("Uliczna 5").withTel_home("1234567"));
+        }
     }
 
 
