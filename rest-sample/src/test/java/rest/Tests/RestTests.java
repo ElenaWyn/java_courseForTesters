@@ -8,6 +8,7 @@ import model.Issue;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -45,7 +46,28 @@ public class RestTests {
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
     }
 
+
+
     private Executor getExecutor() {
         return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
     }
+
+    public void skipIfNotFixed(int issueId) throws IOException {
+        if (isIssueOpen(issueId)) {
+            throw new SkipException("Ignored because of issue " + issueId);
+        }
+    }
+
+    private boolean isIssueOpen(int issueId) throws IOException {
+        Set<Issue> issues = getIssues();
+        for (Issue issue : issues) {
+            if (issue.getId() == issueId) {
+                assertEquals("Closed", issue.getState_name());
+            }
+        }
+        return false;
+
+    }
+
+
 }
