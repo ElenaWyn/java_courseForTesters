@@ -9,6 +9,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class RestTests extends TestBase {
 
+
     @Test
     public  void testCreateIssue() throws IOException {
         Set<Issue> oldIssues  = getIssues();
@@ -20,15 +21,7 @@ public class RestTests extends TestBase {
 
 
     }
-
-    @Test
-    public void testGetIssue (int issueId) throws IOException {
-        skipIfNotFixed(issueId);
-        Issue issue = getIssueById(issueId);
-        //then do smth with issue
-
-    }
-
+    
 
 
 

@@ -52,14 +52,11 @@ public class TestBase {
     }
 
     public boolean isIssueOpen(int issueId) throws IOException {
-        Set<Issue> issues = getIssues();
-        for (Issue issue : issues) {
-            if (issue.getId() == issueId) {
-                assertEquals("Closed", issue.getState_name());
-            }
+        Issue issue = getIssueById(issueId);
+        if (issue.getState_name() == "Closed") {
+            return true;
         }
         return false;
-
     }
 
 
