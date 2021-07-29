@@ -24,25 +24,34 @@ public class ContactsAndGroups  extends TestBase{
         }
 
         ContactSet contacts = app.db().contacts();
+
+        int contactCount = contacts.size();
+
         GroupSet groups = app.db().groups();
         //is all contacts in all groups?
+
+
         int contactsInAllGroups = 0;
         int isInAllGroups = 0;
-        for (Contact contact : contacts) {
-            for (Group group : groups) {
-                if(app.contact().isContactInGroup(contact, group)) {
-                    isInAllGroups = isInAllGroups+1;
+
+            for (Contact contact : contacts) {
+                for (Group group : groups) {
+                    if (app.contact().isContactInGroup(contact, group)) {
+                        isInAllGroups = isInAllGroups + 1;
+                    }
                 }
+                if (isInAllGroups == groups.size()) {
+                    contactsInAllGroups = contactsInAllGroups + 1;
+                }
+                contactsInAllGroups = 0;
             }
-            if (isInAllGroups == groups.size()) {
-                contactsInAllGroups = contactsInAllGroups +1;
+            //if all contacts is in all groups create new contact
+            if (contactsInAllGroups == contacts.size()) {
+                app.contact().create(new Contact().withFirstname("Olena").withLastname("Doedoe").withAddress("Uliczna 5").withTel_home("1234567"));
             }
-            contactsInAllGroups = 0;
-        }
-        //if all contacts is in all groups create new contact
-        if (contactsInAllGroups == contacts.size()) {
-            app.contact().create(new Contact().withFirstname("Olena").withLastname("Doedoe").withAddress("Uliczna 5").withTel_home("1234567"));
-        }
+
+
+
     }
 
 

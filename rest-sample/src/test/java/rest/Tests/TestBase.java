@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.testng.SkipException;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Set;
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -20,7 +21,9 @@ public class TestBase {
     public Issue getIssueById(int issueID) throws IOException {
         String issue = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues/1.json")).returnContent().asString();
         JsonElement parsed = new JsonParser().parse(issue);
-        return new Gson().fromJson(parsed, new TypeToken<Issue>(){}.getType());
+        Gson gson = new Gson();
+        Issue issueByID = gson.fromJson(parsed, Issue.class);
+        return issueByID;    //new Gson().fromJson(parsed, new TypeToken<Issue>(){}.getType());
     }
 
 
@@ -58,6 +61,7 @@ public class TestBase {
         }
         return false;
     }
+
 
 
 }
