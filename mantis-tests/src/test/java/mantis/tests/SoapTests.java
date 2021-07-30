@@ -41,37 +41,4 @@ public class SoapTests extends TestBase {
 
     }
 
-    @Test
-    public void testSSL() throws NoSuchAlgorithmException, IOException, KeyManagementException {
-        SSLContext ctx = SSLContext.getInstance("TLS");
-        ctx.init(new KeyManager[0], new TrustManager[] {new DefaultTrustManager()}, new SecureRandom());
-        SSLContext.setDefault(ctx);
-
-        URL url = new URL("https://localhost/mantisbt-1.3.20/api/soap/mantisconnect.php");
-        HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-        con.setHostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String arg0, SSLSession arg1) {
-                return true;
-            }
-        });
-        con.setRequestMethod("GET");
-        System.out.println("Response Code : " + con.getResponseCode());
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String line;
-        StringBuffer response = new StringBuffer();
-
-        while ((line = in.readLine()) != null) {
-            response.append(line);
-        }
-        in.close();
-
-        System.out.println(response.toString());
-
-
-    }
-
-
-
 }

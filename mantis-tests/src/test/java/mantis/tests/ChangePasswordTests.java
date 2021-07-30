@@ -18,9 +18,12 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import static org.testng.AssertJUnit.assertTrue;
+
 public class ChangePasswordTests extends TestBase  {
 
-    User user = new User().withUserName("TEST1").withLogin("test").withPassword("test").withMail("test1");
+    User user = new User().withUserName("TEST").withLogin("test").withPassword("test").withMail("test1");
+    User admin = new User().withUserName("admin").withLogin("administrator").withPassword("root").withMail("test1");
 
     /*@BeforeMethod
     public void startMailServer() throws IOException {
@@ -32,7 +35,12 @@ public class ChangePasswordTests extends TestBase  {
     public void changeUsersPassword () throws IOException {
         HttpSession session = app.newSession();
         session.login("administrator", "root");
-        app.registration().resetPassword(user.getUserName());
+        boolean a = session.login("administrator", "root");
+        assertTrue(session.login("administrator", "login"));
+
+
+
+        app.registration().resetPassword(admin, user.getUserName());
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 30000);
         String confirmationLink = app.registration().findConfirmationLink(mailMessages, user.getMail());
         String newPassword = "12345";
