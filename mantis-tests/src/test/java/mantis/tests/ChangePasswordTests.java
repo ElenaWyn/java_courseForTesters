@@ -48,9 +48,7 @@ public class ChangePasswordTests extends TestBase  {
 
     @Test
     public void brudnopis() throws MalformedURLException, ServiceException, RemoteException {
-        MantisConnectPortType mc = app.soap().getMantisConnect();
-        ProjectData[] projects = mc.mc_projects_get_user_accessible("administrator", "root");
-        //ProfileDataSearchResult b = mc.mc_user_profiles_get_all("administrator", "root", BigInteger.valueOf(1), BigInteger.valueOf(1));
+        app.soap().test();
 
 
     }

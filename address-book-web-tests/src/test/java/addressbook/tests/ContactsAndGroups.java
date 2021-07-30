@@ -59,12 +59,14 @@ public class ContactsAndGroups  extends TestBase{
     public void addContactToGroup(){
         ContactSet contacts = app.db().contacts();
         GroupSet groups = app.db().groups();
+        int i = 0;
 
         Contact modifiedContact = app.contact().randomContact(contacts); //define contact which will be added to selected group
 
         //assert if contact is already in selected group or contact is in all groups. If yes, choose a new contact
-        while (modifiedContact.getGroups().size() == groups.size()){
+        while (modifiedContact.getGroups().size() == groups.size() && i< contacts.size()){
             modifiedContact = app.contact().randomContact(contacts);
+            i++;
         }
         GroupSet contactGroups = modifiedContact.getGroups();
 
