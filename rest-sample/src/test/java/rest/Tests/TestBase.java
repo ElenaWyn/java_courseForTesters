@@ -55,10 +55,11 @@ public class TestBase {
 
     public boolean isIssueOpen(int issueId) throws IOException {
         Issue issue = getIssueById(issueId);
-        if (issue.getState_name() == "Closed") {
-            return true;
+        if (issue.getState_name().equals("Closed")) {
+            return false;
         }
-        return false;
+
+        return true;
     }
 
 
