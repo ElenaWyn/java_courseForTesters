@@ -25,8 +25,6 @@ public class ContactsAndGroups  extends TestBase{
 
         ContactSet contacts = app.db().contacts();
 
-        int contactCount = contacts.size();
-
         GroupSet groups = app.db().groups();
         //is all contacts in all groups?
 
@@ -67,6 +65,9 @@ public class ContactsAndGroups  extends TestBase{
         while (modifiedContact.getGroups().size() == groups.size() && i< contacts.size()){
             modifiedContact = app.contact().randomContact(contacts);
             i++;
+        }
+        if (i == contacts.size()) {
+            app.contact().create(new Contact().withFirstname("Ivanov").withLastname("Ivan").withTel_home("1233345657"));
         }
         GroupSet contactGroups = modifiedContact.getGroups();
 
