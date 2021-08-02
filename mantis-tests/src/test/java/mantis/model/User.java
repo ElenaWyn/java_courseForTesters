@@ -1,11 +1,24 @@
 package mantis.model;
 
+
+
+
 public class User {
 
     public String userName;
     public String login;
     public String password;
     public String mail;
+    public int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public User withId(int id) {
+        this.id = id;
+        return this;
+    }
 
     public String getMail() {
         return mail;

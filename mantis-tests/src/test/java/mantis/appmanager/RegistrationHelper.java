@@ -86,5 +86,17 @@ public class RegistrationHelper {
         return regex.getText(mailMessage.text);
     }
 
+    public User getUser(User admin) {
+        List <User> users = app.db().allUsers();
+        int adminId = 0;
+        for (User u : users) {
+            if (u.getLogin().equals(admin.getLogin())) {
+                break;
+            }
+            adminId++;
+        }
+        users.remove(adminId);
+        return users.iterator().next();
+    }
 
 }
