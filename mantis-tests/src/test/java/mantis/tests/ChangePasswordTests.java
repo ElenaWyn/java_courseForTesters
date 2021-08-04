@@ -35,7 +35,6 @@ public class ChangePasswordTests extends TestBase  {
 
         List <User> users = app.db().allUsers();
         User user = app.registration().getUser(admin);
-        app.registration().registrateNewUser(user);
 
 
 
